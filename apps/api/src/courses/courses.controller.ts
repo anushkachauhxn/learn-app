@@ -31,4 +31,9 @@ export class CoursesController {
   findOne(@Param('id') id: string) {
     return this.coursesService.findOne(+id);
   }
+
+  @Get('similar/:id')
+  findSimilar(@Param('id') id: string) {
+    return this.coursesService.findSimilar(+id);
+  }
 }

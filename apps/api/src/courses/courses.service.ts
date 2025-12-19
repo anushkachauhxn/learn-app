@@ -104,6 +104,46 @@ export class CoursesService {
     };
   }
 
+  async findSimilar(id: number) {
+    const course = await this.db.prisma.course.findUnique({
+      where: { id, deleted: false },
+      select: {
+        tags: {
+          select: { id: true }
+        }
+      }
+    });
+    if (!course) {
+      throw new NotFoundException("Course not found");
+    }
+
+    const courseTags = course.tags.map((tag: any) => tag.id);
+    const similarCourses = await this.db.prisma.course.findMany({
+      where: {
+        id: { not: id },
+        deleted: false,
+        tags: { some: { id: { in: courseTags } } }
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        previewImageUrl: true,
+        author: {
+          select: { name: true, email: true }
+        },
+        tags: {
+          select: { name: true }
+        }
+      }
+    });
+
+    return similarCourses.map((course: any) => ({
+      ...course,
+      tags: course.tags.map((tag: any) => tag.name)
+    }));
+  }
+
   private async resolveAuthorAndTags(data: any): Promise<any> {
     let resolvedData = { ...data };
 
