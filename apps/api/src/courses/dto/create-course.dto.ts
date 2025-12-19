@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsInt, IsArray } from 'class-validator';
 
 export class CreateCourseDto {
   @IsString()
@@ -13,6 +13,10 @@ export class CreateCourseDto {
   @IsString()
   previewImageUrl?: string;
 
-  @IsInt()
-  authorId: number;
+  @IsString()
+  authorEmail: string;
+
+  @IsOptional()
+  @IsArray()
+  tags?: string[];
 }

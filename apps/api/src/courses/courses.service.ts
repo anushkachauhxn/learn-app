@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { DatabaseService } from "src/database/database.service";
+import { DatabaseService } from "../database/database.service";
 import { CreateCourseDto } from "./dto/create-course.dto";
 import { UpdateCourseDto } from "./dto/update-course.dto";
 
@@ -7,14 +7,20 @@ import { UpdateCourseDto } from "./dto/update-course.dto";
 export class CoursesService {
   constructor(private db: DatabaseService) {}
 
-  async create(createCourseDto: CreateCourseDto) {
-    return this.db.prisma.course.create({ data: createCourseDto });
+  async create(data: CreateCourseDto) {
+    const createData = await this.resolveAuthorAndTags(data);
+
+    return this.db.prisma.course.create({
+      data: createData
+    });
   }
 
   async update(id: number, data: UpdateCourseDto) {
+    const updateData = await this.resolveAuthorAndTags(data);
+
     return this.db.prisma.course.update({
       where: { id },
-      data: data
+      data: updateData
     });
   }
 
@@ -43,9 +49,7 @@ export class CoursesService {
         }
       }
     });
-    if (!courses || courses.length === 0) {
-      throw new NotFoundException("Courses not found");
-    }
+
     return courses.map((course: any) => ({
       ...course,
       tags: course.tags.map((tag: any) => tag.name)
@@ -91,6 +95,7 @@ export class CoursesService {
     if (!course) {
       throw new NotFoundException("Course not found");
     }
+
     return {
       ...course,
       tags: course.tags.map((tag: any) => tag.name),
@@ -99,6 +104,35 @@ export class CoursesService {
       enrolled: course.enrollments.length > 0,
       enrollments: undefined,
     };
+  }
+
+  private async resolveAuthorAndTags(data: any): Promise<any> {
+    let resolvedData = { ...data };
+
+    // resolve author if provided
+    if (data.authorEmail) {
+      const author = await this.db.prisma.user.findUnique({
+        where: { email: data.authorEmail }
+      });
+      if (!author) {
+        throw new NotFoundException("Author not found");
+      }
+      resolvedData.authorId = author.id;
+      delete resolvedData.authorEmail;
+    }
+
+    // resolve tags if provided
+    if (data.tags) {
+      const tags = await this.db.prisma.tag.findMany({
+        where: {
+          name: { in: data.tags }
+        },
+        select: { id: true }
+      });
+      resolvedData.tags = { connect: tags };
+    }
+
+    return resolvedData;
   }
 
   private getCompletedCourseLessons(course: any) : Set<any> {
