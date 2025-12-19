@@ -15,9 +15,76 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  enrollments     UserCourse[]
+  authoredCourses Course[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+}
+
+model Course {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  lessons     Lesson[]
+  tags        Tag[]
+  enrollments UserCourse[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+}
+
+model Lesson {
+  id       Int     @id @default(autoincrement())
+  name     String
+  content  String
+  videoUrl String?
+  order    Int
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  completedBy UserCourse[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  courses Course[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+}
+
+model UserCourse {
+  id Int @id @default(autoincrement())
+
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  completed Lesson[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+
+  @@unique([userId, courseId])
 }
