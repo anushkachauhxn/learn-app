@@ -19,23 +19,21 @@ export class CoursesService {
     const updateData = await this.resolveAuthorAndTags(data);
 
     return this.db.prisma.course.update({
-      where: { id },
+      where: { id, deleted: false },
       data: updateData
     });
   }
 
   async delete(id: number) {
     return this.db.prisma.course.update({
-      where: { id },
+      where: { id, deleted: false },
       data: { deleted: true }
     });
   }
 
   async findAll() {
     const courses = await this.db.prisma.course.findMany({
-      where: {
-        deleted: false
-      },
+      where: { deleted: false },
       select: {
         id: true,
         title: true,
