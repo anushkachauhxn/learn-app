@@ -15,8 +15,9 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int     @id @default(autoincrement())
+  name     String?
+  email    String  @unique
   password String
 
   enrollments     UserCourse[]
@@ -28,9 +29,10 @@ model User {
 }
 
 model Course {
-  id          Int    @id @default(autoincrement())
-  name        String
-  description String
+  id              Int     @id @default(autoincrement())
+  title           String
+  description     String
+  previewImageUrl String?
 
   author   User @relation(fields: [authorId], references: [id])
   authorId Int
@@ -45,11 +47,12 @@ model Course {
 }
 
 model Lesson {
-  id       Int     @id @default(autoincrement())
-  name     String
-  content  String
-  videoUrl String?
-  order    Int
+  id              Int     @id @default(autoincrement())
+  title           String
+  description     String
+  previewImageUrl String?
+  videoUrl        String?
+  order           Int
 
   course   Course @relation(fields: [courseId], references: [id])
   courseId Int
