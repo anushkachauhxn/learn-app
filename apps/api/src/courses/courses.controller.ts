@@ -22,6 +22,16 @@ export class CoursesController {
     return this.coursesService.delete(+id);
   }
 
+  @Post('enroll/:id')
+  enrollCourse(@Param('id') id: string) {
+    return this.coursesService.enrollCourse(+id);
+  }
+
+  @Post('unenroll/:id')
+  unenrollCourse(@Param('id') id: string) {
+    return this.coursesService.unenrollCourse(+id);
+  }
+
   @Get()
   findAll() {
     return this.coursesService.findAll();

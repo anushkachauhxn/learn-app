@@ -31,6 +31,43 @@ export class CoursesService {
     });
   }
 
+  async enrollCourse(courseId: number) {
+    const currentUserId = 3;
+    return this.db.prisma.userCourse.create({
+      data: {
+        userId: currentUserId,
+        courseId: courseId
+      }
+    });
+  }
+
+  async unenrollCourse(courseId: number) {
+    const currentUserId = 3;
+    const userCourse = await this.db.prisma.userCourse.findUnique({
+      where: {
+        userId_courseId: {
+          userId: currentUserId,
+          courseId: courseId
+        },
+        deleted: false
+      }
+    });
+    if (!userCourse) {
+      throw new NotFoundException("You are not enrolled in this course");
+    }
+
+    return this.db.prisma.userCourse.update({
+      where: {
+        userId_courseId: {
+          userId: currentUserId,
+          courseId: courseId
+        },
+        deleted: false
+      },
+      data: { deleted: true }
+    });
+  }
+
   async findAll() {
     const courses = await this.db.prisma.course.findMany({
       where: { deleted: false },
