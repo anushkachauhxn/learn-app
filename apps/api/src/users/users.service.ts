@@ -15,7 +15,7 @@ export class UsersService {
   async findOne(id: number) {
     const user = await this.db.prisma.user.findUnique({
       where: { id, deleted: false },
-      select: { name: true, email: true }
+      select: { id: true, name: true, email: true }
     });
     if (!user) {
       throw new NotFoundException("User not found");
@@ -27,6 +27,7 @@ export class UsersService {
     const user = await this.db.prisma.user.findUnique({
       where: { id, deleted: false },
       select: {
+        id: true,
         name: true,
         email: true,
         enrollments: {
@@ -49,9 +50,9 @@ export class UsersService {
     return {
       name: user.name,
       email: user.email,
+      authoredCourses: user.authoredCourses,
       enrolledCourses: enrollmentStats.enrolledCourses,
-      averageCompletionRate: enrollmentStats.averageCompletionRate,
-      authoredCourses: user.authoredCourses
+      averageCompletionRate: enrollmentStats.averageCompletionRate
     };
   }
 
