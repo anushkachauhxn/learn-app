@@ -1,0 +1,32 @@
+:root {
+  $yellow: hsl(43, 96%, 56%);
+  $text: hsl(120, 2%, 10%);
+  $white: hsl(47, 64%, 96%);
+  $grey: hsl(150, 4%, 89%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(
+    circle at 100% 100%,
+    #ECDEA2 0%,
+    #E3E5E4 90%,
+    #E3E5E4 100%
+  );
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
