@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
+import Navbar from "../components/Navbar";
 import "./globals.scss";
 
 const urabnist = Urbanist({
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urabnist.className}>
+        <Navbar />
         {children}
       </body>
     </html>
