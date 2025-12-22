@@ -1,10 +1,22 @@
-import UserDropdown from "./UserDropdown";
-import { usersService } from "../../services/usersService";
-import styles from "./navbar.module.scss";
 import Image from "next/image";
+import { headers } from "next/headers";
+// components
+import UserDropdown from "./UserDropdown";
+// api imports
+import { usersService } from "../../services/usersService";
+// constants
+import { NAV_ITEMS } from "../../constants";
+// style imports
+import styles from "./navbar.module.scss";
 
 export default async function Navbar() {
+  const headersList = await headers();
   const userList = await usersService.getAllUsers();
+  const pathname = headersList.get("x-pathname") || "";
+
+  const isActive = (path: string) => {
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -17,6 +29,19 @@ export default async function Navbar() {
         />
         <h1>Learn App</h1>
       </a>
+
+      <ul className={styles.navList}>
+        {NAV_ITEMS.map((item) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              className={`${styles.navItem} ${isActive(item.href) ? styles.active : ""}`}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
 
       <UserDropdown
         userList={userList}
