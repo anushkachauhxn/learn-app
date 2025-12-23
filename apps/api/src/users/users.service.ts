@@ -55,14 +55,18 @@ export class UsersService {
       throw new NotFoundException("User not found");
     }
 
+    // get authored courses
+    user.authoredCourses = user.authoredCourses.map((course: any) => ({
+      ...course,
+      tags: course.tags.map((tag: any) => tag.name)
+    }));
+
     // get enrolled courses and completion stats
     const enrolledCourseIds = user.enrollments.map((enrollment: any) => enrollment.courseId);
     const enrollmentStats = await this.resolveUserEnrollmentStats(id, enrolledCourseIds);
     return {
       name: user.name,
       email: user.email,
-      author: user.author,
-      tags: user.tags.map((tag: any) => tag.name),
       authoredCourses: user.authoredCourses,
       enrolledCourses: enrollmentStats.enrolledCourses,
       averageCompletionRate: enrollmentStats.averageCompletionRate

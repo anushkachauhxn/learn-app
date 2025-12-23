@@ -21,6 +21,11 @@ export interface AuthoredCourse {
   title: string;
   description: string;
   previewImageUrl?: string;
+  author: {
+    name: string;
+    email: string;
+  };
+  tags: string[];
 }
 
 export interface EnrolledCourse {
@@ -28,6 +33,11 @@ export interface EnrolledCourse {
   title: string;
   description: string;
   previewImageUrl?: string;
+  author: {
+    name: string;
+    email: string;
+  },
+  tags: string[];
   completedLessons: number;
   totalLessons: number;
   completionPercentage: number;

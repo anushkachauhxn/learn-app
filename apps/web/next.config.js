@@ -12,10 +12,6 @@ const nextConfig = {
         justify-content: center;
         align-items: center;
       }
-      @mixin flex-column {
-        display: flex;
-        flex-direction: column;
-      }
       @mixin flex-start {
         display: flex;
         align-items: flex-start;
@@ -23,6 +19,16 @@ const nextConfig = {
       @mixin flex-between {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+      }
+      @mixin flex-column {
+        display: flex;
+        flex-direction: column;
+      }
+      @mixin flex-column-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
       }
     `,
