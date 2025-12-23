@@ -19,13 +19,17 @@ export const lessonsService = {
     return await apiCall(`/lessons/all/${courseId}`);
   },
 
-  async getLessonDetails(id: number): Promise<LessonDetail> {
-    return await apiCall(`/lessons/${id}`);
+  async getLessonDetails(id: number, userId: number): Promise<LessonDetail> {
+    return await apiCall(`/lessons/${id}?userId=${userId}`);
   },
 
-  async markLessonComplete(id: number): Promise<Lesson> {
+  async markLessonComplete(id: number, userId: number): Promise<Lesson> {
     return await apiCall(`/lessons/complete/${id}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
     });
   },
 };

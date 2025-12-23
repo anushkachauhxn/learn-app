@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { LessonsService } from './lessons.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { UpdateLessonDto } from './dto/update-lesson.dto';
@@ -28,12 +28,12 @@ export class LessonsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lessonsService.findOne(+id);
+  findOne(@Param('id') id: string, @Query('userId') userId: string) {
+    return this.lessonsService.findOne(+id, +userId);
   }
 
   @Post('complete/:id')
-  markAsComplete(@Param('id') id: string) {
-    return this.lessonsService.markAsComplete(+id);
+  markAsComplete(@Param('id') id: string, @Body('userId') userId: number) {
+    return this.lessonsService.markAsComplete(+id, userId);
   }
 }

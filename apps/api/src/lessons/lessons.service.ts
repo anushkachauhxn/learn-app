@@ -42,7 +42,7 @@ export class LessonsService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, userId: number) {
     const lesson = await this.db.prisma.lesson.findUnique({
       where: { id, deleted: false },
       select: {
@@ -60,12 +60,11 @@ export class LessonsService {
 
     return {
       ...lesson,
-      completed: await this.isLessonCompleted(lesson)
+      completed: await this.isLessonCompleted(lesson, userId)
     };
   }
 
-  async markAsComplete(id: number) {
-    const currentUserId = 4;
+  async markAsComplete(id: number, userId: number) {
     const lesson = await this.db.prisma.lesson.findUnique({
       where: { id, deleted: false },
       select: { id: true, courseId: true }
@@ -74,7 +73,7 @@ export class LessonsService {
       throw new NotFoundException("Lesson not found");
     }
 
-    const isLessonCompleted = await this.isLessonCompleted(lesson);
+    const isLessonCompleted = await this.isLessonCompleted(lesson, userId);
     if (isLessonCompleted) {
       throw new ConflictException("Lesson already completed");
     }
@@ -82,7 +81,7 @@ export class LessonsService {
     return this.db.prisma.userCourse.update({
       where: {
         userId_courseId: {
-          userId: currentUserId,
+          userId: userId,
           courseId: lesson.courseId
         },
         deleted: false
@@ -95,12 +94,11 @@ export class LessonsService {
     });
   }
 
-  private async isLessonCompleted(lesson: any) : Promise<boolean> {
-    const currentUserId = 4;
+  private async isLessonCompleted(lesson: any, userId: number) : Promise<boolean> {
     const userCourse = await this.db.prisma.userCourse.findUnique({
       where: {
         userId_courseId: {
-          userId: currentUserId,
+          userId: userId,
           courseId: lesson.courseId
         },
         deleted: false

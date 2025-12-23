@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -23,13 +23,13 @@ export class CoursesController {
   }
 
   @Post('enroll/:id')
-  enrollCourse(@Param('id') id: string) {
-    return this.coursesService.enrollCourse(+id);
+  enrollCourse(@Param('id') id: string, @Body('userId') userId: number) {
+    return this.coursesService.enrollCourse(+id, userId);
   }
 
   @Post('unenroll/:id')
-  unenrollCourse(@Param('id') id: string) {
-    return this.coursesService.unenrollCourse(+id);
+  unenrollCourse(@Param('id') id: string, @Body('userId') userId: number) {
+    return this.coursesService.unenrollCourse(+id, userId);
   }
 
   @Get()
@@ -38,8 +38,8 @@ export class CoursesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(+id);
+  findOne(@Param('id') id: string, @Query('userId') userId: string) {
+    return this.coursesService.findOne(+id, +userId);
   }
 
   @Get('similar/:id')

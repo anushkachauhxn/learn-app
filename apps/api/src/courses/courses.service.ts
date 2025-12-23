@@ -31,22 +31,20 @@ export class CoursesService {
     });
   }
 
-  async enrollCourse(courseId: number) {
-    const currentUserId = 3;
+  async enrollCourse(courseId: number, userId: number) {
     return this.db.prisma.userCourse.create({
       data: {
-        userId: currentUserId,
+        userId: userId,
         courseId: courseId
       }
     });
   }
 
-  async unenrollCourse(courseId: number) {
-    const currentUserId = 3;
+  async unenrollCourse(courseId: number, userId: number) {
     const userCourse = await this.db.prisma.userCourse.findUnique({
       where: {
         userId_courseId: {
-          userId: currentUserId,
+          userId: userId,
           courseId: courseId
         },
         deleted: false
@@ -59,7 +57,7 @@ export class CoursesService {
     return this.db.prisma.userCourse.update({
       where: {
         userId_courseId: {
-          userId: currentUserId,
+          userId: userId,
           courseId: courseId
         },
         deleted: false
@@ -91,8 +89,7 @@ export class CoursesService {
     }));
   }
 
-  async findOne(id: number) {
-    const currentUserId = 4;
+  async findOne(id: number, userId: number) {
     const course = await this.db.prisma.course.findUnique({
       where: { id, deleted: false },
       select: {
@@ -118,7 +115,7 @@ export class CoursesService {
           }
         },
         enrollments: {
-          where: { userId: currentUserId, deleted: false },
+          where: { userId: userId, deleted: false },
           select: {
             completed: {
               select: { id: true }

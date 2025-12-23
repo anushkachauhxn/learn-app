@@ -33,23 +33,31 @@ export const coursesService = {
     return await apiCall("/courses");
   },
 
-  async getCourseDetails(id: number): Promise<CourseDetail> {
-    return await apiCall(`/courses/${id}`);
+  async getCourseDetails(id: number, userId: number): Promise<CourseDetail> {
+    return await apiCall(`/courses/${id}?userId=${userId}`);
   },
 
   async getSimilarCourses(id: number): Promise<Course[]> {
     return await apiCall(`/courses/similar/${id}`);
   },
 
-  async enrollCourse(id: number): Promise<CourseDetail> {
+  async enrollCourse(id: number, userId: number): Promise<CourseDetail> {
     return await apiCall(`/courses/enroll/${id}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
     });
   },
 
-  async unenrollCourse(id: number): Promise<CourseDetail> {
+  async unenrollCourse(id: number, userId: number): Promise<CourseDetail> {
     return await apiCall(`/courses/unenroll/${id}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
     });
   },
 };
