@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { User } from "../../services/usersService";
 import { useUserContext } from "../../contexts/UserContext";
-import styles from "./navbar.module.scss";
+import styles from "./styles.module.scss";
 
 const UserDropdown = (
   { userList } : { userList: User[] }

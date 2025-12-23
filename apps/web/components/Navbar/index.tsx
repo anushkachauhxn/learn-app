@@ -7,7 +7,7 @@ import { usersService } from "../../services/usersService";
 // constants
 import { NAV_ITEMS } from "../../constants";
 // style imports
-import styles from "./navbar.module.scss";
+import styles from "./styles.module.scss";
 
 export default async function Navbar() {
   const headersList = await headers();
