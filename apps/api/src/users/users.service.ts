@@ -36,7 +36,18 @@ export class UsersService {
         },
         authoredCourses: {
           where: { deleted: false },
-          select: { id: true, title: true, description: true, previewImageUrl: true }
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            previewImageUrl: true,
+            author: {
+              select: { name: true, email: true }
+            },
+            tags: {
+              select: { name: true }
+            }
+          }
         }
       }
     });
@@ -50,6 +61,8 @@ export class UsersService {
     return {
       name: user.name,
       email: user.email,
+      author: user.author,
+      tags: user.tags.map((tag: any) => tag.name),
       authoredCourses: user.authoredCourses,
       enrolledCourses: enrollmentStats.enrolledCourses,
       averageCompletionRate: enrollmentStats.averageCompletionRate
@@ -67,6 +80,12 @@ export class UsersService {
         title: true,
         description: true,
         previewImageUrl: true,
+        author: {
+          select: { name: true, email: true }
+        },
+        tags: {
+          select: { name: true }
+        },
         lessons: {
           where: { deleted: false },
           select: { id: true }
@@ -96,6 +115,8 @@ export class UsersService {
           title: course.title,
           description: course.description,
           previewImageUrl: course.previewImageUrl,
+          author: course.author,
+          tags: course.tags.map((tag: any) => tag.name),
           completedLessons: completedLessons,
           totalLessons: totalLessons,
           completionPercentage: completionPercentage
