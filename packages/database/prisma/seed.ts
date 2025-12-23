@@ -115,6 +115,26 @@ async function main() {
   }
   console.log("✅ Lesson completions created");
 
+  // Update courses
+  for (const course of courseData) {
+    let dbCourse = await prisma.course.findFirst({
+      where: {
+        title: course.title,
+        deleted: false
+      }
+    });
+    if (dbCourse) {
+      await prisma.course.update({
+        where: { id: dbCourse.id },
+        data: {
+          description: course.description + " Updated"
+        }
+      });
+      console.log("✅ Course updated:", dbCourse.title);
+    }
+  }
+  console.log("✅ Course descriptions updated");
+
   console.log("🎉 Seed completed successfully!");
 }
 

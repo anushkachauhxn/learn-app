@@ -55,7 +55,7 @@ export const tagsData = [
 export const courseData = [
   {
     title: "Web Development Fundamentals",
-    description: "Learn the fundamentals of web development",
+    description: "Master the essential building blocks of modern web development in this comprehensive course. You'll start by learning HTML to structure web content, then dive into CSS for styling and layout design. This course provides hands-on experience creating responsive, interactive websites from scratch. Perfect for beginners who want to understand how websites are built and maintained, you'll gain practical skills in semantic markup, modern CSS techniques, and best practices for creating accessible web content that works across all devices and browsers.",
     previewImageUrl: "https://i.ytimg.com/vi/iG2jotQo9NI/maxresdefault.jpg",
     tags: ["HTML", "CSS", "Frontend", "Web Development"],
     author: "anushka@example.com",
@@ -107,7 +107,7 @@ export const courseData = [
   },
   {
     title: "Introduction to Javascript",
-    description: "This course covers the basics of JavaScript programming language",
+    description: "Unlock the power of interactive web development with JavaScript, the programming language that brings websites to life. This comprehensive course takes you from complete beginner to confident JavaScript developer, covering core concepts like variables, functions, objects, and arrays. You'll learn how to manipulate the DOM, handle user events, and create dynamic web applications. Through practical projects and real-world examples, you'll master both fundamental programming concepts and JavaScript-specific features that make modern web development possible.",
     previewImageUrl: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20220714150931/JavaScript-Introduction.jpg",
     tags: ["JavaScript", "Frontend", "Web Development"],
     author: "anushka@example.com",
@@ -171,7 +171,7 @@ export const courseData = [
   },
   {
     title: "React for Beginners",
-    description: "Learn React from scratch",
+    description: "Dive into the world of modern frontend development with React, the most popular JavaScript library for building user interfaces. This beginner-friendly course teaches you how to create dynamic, component-based applications that scale beautifully. You'll learn React fundamentals including JSX syntax, component lifecycle, state management, and props. Through hands-on projects, you'll build interactive web applications while mastering essential concepts like hooks, event handling, and conditional rendering. Perfect for JavaScript developers ready to take their skills to the next level.",
     previewImageUrl: "https://repository-images.githubusercontent.com/37153337/9d0a6780-394a-11eb-9fd1-6296a684b124",
     tags: ["React", "JavaScript", "Frontend", "Web Development"],
     author: "anushka@example.com",
@@ -205,7 +205,7 @@ export const courseData = [
   },
   {
     title: "Introduction to Product Management",
-    description: "Learn the fundamentals of product management",
+    description: "Step into the exciting world of product management and learn how to drive successful products from conception to launch. This comprehensive course covers the essential skills every product manager needs, including market research, user story creation, roadmap planning, and stakeholder communication. You'll discover how to balance user needs with business objectives, make data-driven decisions, and lead cross-functional teams effectively. Through real-world case studies and practical exercises, you'll develop the strategic thinking and leadership skills necessary to excel in this dynamic role.",
     previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*BpgFQ6mzg8BdZX1CPz0S8Q.png",
     tags: ["Product Management", "Design Thinking"],
     author: "priya@example.com",
@@ -233,7 +233,7 @@ export const courseData = [
   },
   {
     title: "Product Management Principles and Practices",
-    description: "Dive deep into product management principles and practices",
+    description: "Elevate your product management expertise with advanced strategies and methodologies used by industry leaders. This intensive course delves deep into sophisticated product management techniques including advanced analytics, stakeholder management, and go-to-market strategies. You'll master the art of product roadmapping, learn to leverage web analytics for informed decision-making, and develop skills in managing complex stakeholder relationships. Perfect for experienced professionals looking to advance their careers or those transitioning into senior product roles, this course provides the strategic insight needed to drive product success at scale.",
     previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*BpgFQ6mzg8BdZX1CPz0S8Q.png",
     tags: ["Product Management", "Stakeholder Engagement", "Web Analytics"],
     author: "priya@example.com",
@@ -273,7 +273,7 @@ export const courseData = [
   },
   {
     title: "User Experience Design Fundamentals",
-    description: "Learn the fundamentals of user experience design",
+    description: "Transform your understanding of user-centered design and create digital experiences that truly resonate with users. This comprehensive UX design course covers the complete design process from user research and persona development to wireframing, prototyping, and usability testing. You'll learn design thinking methodologies, master industry-standard tools, and develop skills in stakeholder engagement and user analytics. Through practical projects and real-world scenarios, you'll build a portfolio of work that demonstrates your ability to create intuitive, accessible, and delightful user experiences across various digital platforms.",
     previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*5nZnS2HKGDASJLc4tD4xXA.png",
     tags: ["Design Thinking", "Stakeholder Engagement", "Web Analytics"],
     author: "priya@example.com",
@@ -319,7 +319,7 @@ export const courseData = [
   },
   {
     title: "Android Mobile Development",
-    description: "Learn Android mobile development",
+    description: "Master the art of creating powerful mobile applications for the world's most popular mobile platform. This comprehensive Android development course takes you from setup to deployment, covering everything you need to build professional mobile apps. You'll learn Java programming in the context of Android, understand app architecture patterns, master UI design principles, and work with databases and APIs. Through hands-on projects, you'll create fully functional apps while learning best practices for testing, optimization, and Google Play Store deployment. Perfect for developers ready to enter the mobile app market.",
     previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*QUaRnELKBOkTy4NGTL3JaA.png",
     tags: ["Android", "Java", "Mobile Development"],
     author: "jaydeep@example.com",
@@ -365,7 +365,7 @@ export const courseData = [
   },
   {
     title: "Python for Data Science",
-    description: "Python course specific for data science",
+    description: "Unlock the power of data analysis and machine learning with Python, the most versatile programming language in the data science ecosystem. This comprehensive course covers essential libraries like NumPy, Pandas, and Matplotlib, teaching you to manipulate, analyze, and visualize complex datasets. You'll master SQL for database interactions, learn statistical analysis techniques, and discover how to extract meaningful insights from raw data. Through real-world projects and case studies, you'll develop the skills needed to excel as a data scientist, from data cleaning and exploration to creating compelling visualizations and reports.",
     previewImageUrl: "https://media.geeksforgeeks.org/wp-content/uploads/20200225180205/51.png",
     tags: ["Python", "SQL", "Data Science"],
     author: "jaydeep@example.com",
@@ -399,7 +399,7 @@ export const courseData = [
   },
   {
     title: "Java Programming",
-    description: "Learn how to program and develop in Java",
+    description: "Master one of the world's most popular and versatile programming languages used by millions of developers worldwide. This comprehensive Java course covers everything from basic syntax to advanced object-oriented programming concepts. You'll learn to write clean, efficient code using Java's powerful features including classes, inheritance, polymorphism, and exception handling. Through practical projects and coding exercises, you'll develop expertise in Java collections, understand memory management, and explore Java's role in backend web development and enterprise applications. Ideal for beginners or programmers looking to add Java to their skill set.",
     previewImageUrl: "https://logos-world.net/wp-content/uploads/2022/07/Java-Logo.png",
     tags: ["Java", "Backend", "Web Development"],
     author: "jaydeep@example.com",
