@@ -81,4 +81,27 @@
       border-radius: 24px;
     }
   }
+
+  .cardProgress {
+    margin-top: 16px;
+    @include flex-column;
+    row-gap: 12px;
+
+    .progressBar {
+      @include flex-between;
+      .progressItem {
+        width: 2.5px;
+        height: 24px;
+        background: #E8DFBC;
+        border-radius: 2px;
+        &.completed {
+          background: $yellow;
+        }
+      }
+    }
+
+    .progressInfo {
+      @include flex-between;
+    }
+  }
 }

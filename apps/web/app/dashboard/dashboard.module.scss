@@ -1,0 +1,36 @@
+.container {
+  padding: 32px;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: 48px;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .header {
+    @include flex-between;
+    .userStats {
+      @include flex-start;
+      column-gap: 32px;
+      .userText {
+        @include flex-column-center;
+        row-gap: 4px;
+      }
+    }
+  }
+  .userCourses {
+    margin-top: 32px;
+    .courses {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+  }
+}

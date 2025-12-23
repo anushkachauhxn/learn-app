@@ -1,9 +1,10 @@
 import React from "react";
 import { Course } from "../../services/coursesService";
+import { AuthoredCourse, EnrolledCourse } from "../../services/usersService";
 import styles from "./styles.module.scss";
         
 const CourseCard = ({ course } : {
-  course: Course
+  course: Course | AuthoredCourse | EnrolledCourse
 }) => {
   return (
     <div className={styles.courseCard}>
@@ -47,6 +48,35 @@ const CourseCard = ({ course } : {
           </span>
         ))}
       </div>
+
+      {"completionPercentage" in course && (
+        <div className={styles.cardProgress}>
+          <div className={styles.progressBar}>
+            {Array.from({ length: 50 }, (_, index) => {
+              const isCompleted = (index + 1) / 50 * 100 <= course.completionPercentage;
+              return (
+                <span
+                  key={index}
+                  className={`${styles.progressItem} ${isCompleted? styles.completed : ""}`}
+                />
+              )
+            })}
+          </div>
+
+          <div className={styles.progressInfo}>
+            <span>
+              {course.completedLessons} / {course.totalLessons}
+              {course.completionPercentage > 0
+                ? course.completionPercentage === 100
+                  ? " Completed"
+                  : " In Progress"
+                : " Not Started"
+              }
+            </span>
+            <span>{Math.round(course.completionPercentage)}%</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
