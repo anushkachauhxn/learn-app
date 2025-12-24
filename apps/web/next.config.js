@@ -12,6 +12,10 @@ const nextConfig = {
         justify-content: center;
         align-items: center;
       }
+      @mixin flex-align-center {
+        display: flex;
+        align-items: center;
+      }
       @mixin flex-start {
         display: flex;
         align-items: flex-start;

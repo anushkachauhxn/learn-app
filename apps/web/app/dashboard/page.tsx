@@ -37,7 +37,7 @@ const Dashbaord = () => {
           {authoredCourses?.length
           ? (
             <div className={styles.userText}>
-              <h2>{authoredCourses.length}</h2>
+              <h2>{authoredCourses.length.toLocaleString("en-US", { minimumIntegerDigits: 2 })}</h2>
               <p>Authored Courses</p>
             </div>
           ) : null}
