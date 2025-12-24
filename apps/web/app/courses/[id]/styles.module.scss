@@ -63,6 +63,18 @@
     }
   }
 
+  .authorInfo {
+    @include flex-start;
+    column-gap: 8px;
+    img {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .enrollButton {
     padding: 8px 24px;
     width: 100%;
