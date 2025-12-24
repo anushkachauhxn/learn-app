@@ -3,6 +3,7 @@ import { useEffect, useState, use } from "react";
 import Image from "next/image";
 // components
 import CourseCard from "../../../components/CourseCard";
+import CourseTags from "../../../components/CourseTags";
 import Icons from "../../../components/Icons";
 // api imports
 import { useUserContext } from "../../../contexts/UserContext";
@@ -56,7 +57,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
         <div className={styles.card}>
           <h1>{courseData?.title}</h1>
           <p>{courseData?.description}</p>
-
+          <CourseTags tags={courseData?.tags} />
           <a href={`/users/${courseData?.author?.id}`}>
             <div className={styles.authorInfo}>
               <Image

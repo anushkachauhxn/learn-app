@@ -69,27 +69,6 @@
     }
   }
 
-  .cardTags {
-    margin-top: auto;
-    @include flex-start;
-    column-gap: 8px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .tag {
-      padding: 8px 12px;
-      font-size: 14px;
-      font-weight: 400;
-      white-space: nowrap;
-      background: $white;
-      border-radius: 24px;
-    }
-  }
-
   .cardProgress {
     margin-top: 16px;
     @include flex-column;

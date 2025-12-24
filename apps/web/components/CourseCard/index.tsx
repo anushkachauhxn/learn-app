@@ -1,5 +1,6 @@
 import React from "react";
 // component imports
+import CourseTags from "../CourseTags";
 import Icons from "../Icons";
 // service imports
 import { Course } from "../../services/coursesService";
@@ -43,13 +44,7 @@ const CourseCard = ({ course } : {
         </div>
       </div>
 
-      <div className={styles.cardTags}>
-        {course.tags.map((tag: string, index: number) => (
-          <span key={index} className={styles.tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
+      <CourseTags tags={course.tags} />
 
       {"completionPercentage" in course && (
         <div className={styles.cardProgress}>
