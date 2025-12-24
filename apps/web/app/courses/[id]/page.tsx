@@ -2,10 +2,11 @@
 import { useEffect, useState, use } from "react";
 import Image from "next/image";
 // components
+import CourseCard from "../../../components/CourseCard";
 import Icons from "../../../components/Icons";
 // api imports
 import { useUserContext } from "../../../contexts/UserContext";
-import { CourseDetail, Lesson, coursesService } from "../../../services/coursesService";
+import { Course, CourseDetail, Lesson, coursesService } from "../../../services/coursesService";
 // constants
 import { COURSE_FEATURES } from "../../../constants";
 // style imports
@@ -16,6 +17,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
   const { selectedUserId } = useUserContext();
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
 
   useEffect(() => {
     if (selectedUserId && courseId) {
@@ -23,6 +25,14 @@ const CoursePage = ({ params }: CoursePageProps) => {
       .then((data) => {
         setCourseData(data);
         setLessons(data.lessons);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      coursesService.getSimilarCourses(+courseId)
+      .then((data) => {
+        setSimilarCourses(data);
       })
       .catch((error) => {
         console.log(error);
@@ -110,6 +120,17 @@ const CoursePage = ({ params }: CoursePageProps) => {
               );
             })}
           </ul>
+        </div>
+      </div>
+
+      <div className={styles.similarCourses}>
+        <h2>Similar Courses</h2>
+        <div className={styles.coursesList}>
+          {similarCourses.map((course) => (
+            <a key={course.id} href={`/courses/${course.id}`}>
+              <CourseCard course={course} />
+            </a>
+          ))}
         </div>
       </div>
     </main>

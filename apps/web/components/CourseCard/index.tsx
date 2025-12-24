@@ -22,6 +22,10 @@ const CourseCard = ({ course } : {
       </div>
 
       <div className={styles.cardContent}>
+        <div className={styles.cardImage}>
+          <img src={course.previewImageUrl} alt="" />
+        </div>
+
         <div className={styles.cardText}>
           <h2>{course.title}</h2>
           <h4>{course.author.name}</h4>
