@@ -22,6 +22,7 @@ export interface AuthoredCourse {
   description: string;
   previewImageUrl?: string;
   author: {
+    id: number;
     name: string;
     email: string;
   };
@@ -34,6 +35,7 @@ export interface EnrolledCourse {
   description: string;
   previewImageUrl?: string;
   author: {
+    id: number;
     name: string;
     email: string;
   },

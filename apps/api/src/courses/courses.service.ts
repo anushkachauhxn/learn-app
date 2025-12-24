@@ -75,7 +75,7 @@ export class CoursesService {
         description: true,
         previewImageUrl: true,
         author: {
-          select: { name: true, email: true }
+          select: { id: true, name: true, email: true }
         },
         tags: {
           select: { name: true }
@@ -98,7 +98,7 @@ export class CoursesService {
         description: true,
         previewImageUrl: true,
         author: {
-          select: { name: true, email: true }
+          select: { id: true, name: true, email: true }
         },
         tags: {
           select: { name: true }
@@ -164,7 +164,7 @@ export class CoursesService {
         description: true,
         previewImageUrl: true,
         author: {
-          select: { name: true, email: true }
+          select: { id: true, name: true, email: true }
         },
         tags: {
           select: { name: true }

@@ -7,6 +7,7 @@ export interface Course {
   description: string;
   previewImageUrl?: string;
   author: {
+    id: number;
     name: string;
     email: string;
   };

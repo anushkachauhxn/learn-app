@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, use } from "react";
+import Image from "next/image";
 // components
 import Icons from "../../../components/Icons";
 // api imports
@@ -46,9 +47,17 @@ const CoursePage = ({ params }: CoursePageProps) => {
           <h1>{courseData?.title}</h1>
           <p>{courseData?.description}</p>
 
-          <div className={styles.author}>
-            <h4>{courseData?.author?.name}</h4>
-          </div>
+          <a href={`/users/${courseData?.author?.id}`}>
+            <div className={styles.authorInfo}>
+              <Image
+                src="/user-placeholder.jpg"
+                alt=""
+                width={24}
+                height={24}
+              />
+              <h4>{courseData?.author?.name}</h4>
+            </div>
+          </a>
         </div>
 
         {lessons && lessons.length > 0 ? (
