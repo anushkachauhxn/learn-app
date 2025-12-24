@@ -58,9 +58,10 @@ export class LessonsService {
       throw new NotFoundException("Lesson not found");
     }
 
+    const lessonStatus = await this.getLessonStatus(lesson, userId);
     return {
       ...lesson,
-      completed: await this.isLessonCompleted(lesson, userId)
+      ...lessonStatus
     };
   }
 
@@ -73,8 +74,11 @@ export class LessonsService {
       throw new NotFoundException("Lesson not found");
     }
 
-    const isLessonCompleted = await this.isLessonCompleted(lesson, userId);
-    if (isLessonCompleted) {
+    const lessonStatus = await this.getLessonStatus(lesson, userId);
+    if (!lessonStatus.enrolled) {
+      throw new NotFoundException("You are not enrolled in this course");
+    }
+    if (lessonStatus.completed) {
       throw new ConflictException("Lesson already completed");
     }
 
@@ -94,7 +98,7 @@ export class LessonsService {
     });
   }
 
-  private async isLessonCompleted(lesson: any, userId: number) : Promise<boolean> {
+  private async getLessonStatus(lesson: any, userId: number) : Promise<any> {
     const userCourse = await this.db.prisma.userCourse.findUnique({
       where: {
         userId_courseId: {
@@ -110,15 +114,15 @@ export class LessonsService {
       }
     });
 
-    if (!userCourse) {
-      throw new ConflictException("You are not enrolled in this course");
-    }
-    else if (userCourse && userCourse.completed) {
-      const completedLessons = userCourse.completed.map((completedLesson: any) => completedLesson.id);
-      if (completedLessons.includes(lesson.id)) {
-        return true;
+    if (userCourse) {
+      if (userCourse.completed) {
+        const completedLessons = userCourse.completed.map((completedLesson: any) => completedLesson.id);
+        if (completedLessons.includes(lesson.id)) {
+          return { enrolled: true, completed: true };
+        }
       }
+      return { enrolled: true, completed: false };
     }
-    return false;
+    return { enrolled: false, completed: false };
   }
 }
