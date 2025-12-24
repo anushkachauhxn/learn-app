@@ -51,6 +51,7 @@ export class LessonsService {
         description: true,
         previewImageUrl: true,
         videoUrl: true,
+        order: true,
         courseId: true
       }
     });

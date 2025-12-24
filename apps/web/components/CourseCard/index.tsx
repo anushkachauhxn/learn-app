@@ -19,7 +19,7 @@ const CourseCard = ({ course } : {
         </button>
         <a className={styles.cardActionBtn} href={`/courses/${course.id}`} target="_blank">
           <Icons.ArrowAngular height={20} />
-        </a>        
+        </a>
       </div>
 
       <div className={styles.cardContent}>

@@ -4,20 +4,51 @@
   grid-template-columns: repeat(3, minmax(300px, 1fr));
   gap: 32px;
 
-  .courseContent {
+  .lessonContent {
     grid-column: span 2;
     @include flex-column;
     row-gap: 16px;
+    a {
+      text-decoration: underline;
+    }
   }
-  .courseDetails {
+  .lessonDetails {
     grid-column: span 1;
-  }
-  .similarCourses {
-    grid-column: span 3;
-    @include flex-column;
-    row-gap: 16px;
+    img {
+      width: 100%;
+    }
   }
 
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  h5 {
+    font-size: 16px;
+    font-weight: 500;
+    color: $secondary-text;
+    @include flex-center;
+  }
+  h6 {
+    font-size: 14px;
+    font-weight: 400;
+    color: $secondary-text;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    color: $secondary-text;
+    line-height: 1.5;
+  }
+  
   .card {
     padding: 24px;
     width: 100%;
@@ -27,34 +58,6 @@
     backdrop-filter: blur(3px);
     box-shadow: 0px 12px 37px rgba(226, 228, 227, 0.45);
     border-radius: 18px;
-    h1 {
-      font-size: 32px;
-      font-weight: 600;
-    }
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    h4 {
-      font-size: 16px;
-      font-weight: 500;
-    }
-    h5 {
-      font-size: 16px;
-      font-weight: 500;
-      color: $secondary-text;
-    }
-    h6 {
-      font-size: 14px;
-      font-weight: 400;
-      color: $secondary-text;
-    }
-    p {
-      font-size: 16px;
-      font-weight: 400;
-      color: $secondary-text;
-      line-height: 1.5;
-    }
     img {
       width: 100%;
       object-fit: contain;
@@ -68,19 +71,7 @@
     }
   }
 
-  .authorInfo {
-    @include flex-align-center;
-    column-gap: 8px;
-    img {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-    }
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  .ctaButton {
+  .ctaBtn {
     padding: 10px 24px;
     width: 100%;
     @include flex-center;
@@ -98,15 +89,7 @@
       background: hsl(46, 92%, 71%);
     }
   }
-  .featuresList {
-    @include flex-column;
-    row-gap: 12px;
-    li {
-      @include flex-align-center;
-      column-gap: 8px;
-      
-    }
-  }
+
   .lessonsList {
     @include flex-column;
     row-gap: 20px;
@@ -118,17 +101,9 @@
         transform: translateY(-2px);
       }
     }
-    .completed {
+    .status {
       float: right;
       @include flex-center;
     }
   }
-  .coursesList {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-  }
 }
-
-

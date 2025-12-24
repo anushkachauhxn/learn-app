@@ -10,7 +10,9 @@ export interface Lesson {
 }
 
 export interface LessonDetail extends Lesson {
+  order: number;
   courseId: number;
+  enrolled?: boolean;
   completed?: boolean;
 }
 

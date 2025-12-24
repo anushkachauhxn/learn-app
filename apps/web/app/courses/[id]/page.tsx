@@ -102,7 +102,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
         <div className={styles.card}>
           <img src={courseData?.previewImageUrl} alt="" />
           <button
-            className={styles.enrollButton}
+            className={styles.ctaButton}
             onClick={handleChangeEnrollment}
           >
             {courseData?.enrolled ? <Icons.PlugSolid /> : <Icons.BoltSolid />}
