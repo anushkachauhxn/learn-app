@@ -1,0 +1,111 @@
+.container {
+  padding: 32px;
+  @include flex-start;
+  column-gap: 32px;
+
+  .courseContent {
+    flex: 1;
+    @include flex-column;
+    row-gap: 16px;
+  }
+  .courseDetails {
+    width: 350px;
+    
+  }
+
+  .card {
+    padding: 24px;
+    width: 100%;
+    @include flex-column;
+    row-gap: 16px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(3px);
+    box-shadow: 0px 12px 37px rgba(226, 228, 227, 0.45);
+    border-radius: 18px;
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    h4 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    h5 {
+      font-size: 16px;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+    h6 {
+      font-size: 14px;
+      font-weight: 400;
+      color: $secondary-text;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      color: $secondary-text;
+      line-height: 1.5;
+    }
+    img {
+      width: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+    svg {
+      height: 18px;
+    }
+    hr {
+      opacity: 0.5;
+    }
+  }
+
+  .enrollButton {
+    padding: 8px 24px;
+    width: 100%;
+    @include flex-center;
+    column-gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $text;
+    border-radius: 12px;
+    background: hsl(45, 92%, 68%);
+    border: 1px solid hsl(45, 92%, 63%);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    &:hover {
+      transform: translateY(-2px);
+      background: hsl(46, 92%, 71%);
+    }
+  }
+  .featuresList {
+    @include flex-column;
+    row-gap: 12px;
+    li {
+      @include flex-align-center;
+      column-gap: 8px;
+      
+    }
+  }
+  .lessonsList {
+    @include flex-column;
+    row-gap: 20px;
+    li {
+      transition: all 0.2s ease;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+        transform: translateY(-2px);
+      }
+    }
+    .completed {
+      float: right;
+      @include flex-center;
+    }
+  }
+}
+
+
