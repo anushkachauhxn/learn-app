@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, use } from "react";
+import Link from "next/link";
 import Image from "next/image";
 // components
 import CourseCard from "../../../components/CourseCard";
@@ -58,7 +59,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
           <h1>{courseData?.title}</h1>
           <p>{courseData?.description}</p>
           <CourseTags tags={courseData?.tags} />
-          <a href={`/users/${courseData?.author?.id}`}>
+          <Link href={`/users/${courseData?.author?.id}`}>
             <div className={styles.authorInfo}>
               <Image
                 src="/user-placeholder.jpg"
@@ -68,7 +69,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
               />
               <h4>{courseData?.author?.name}</h4>
             </div>
-          </a>
+          </Link>
         </div>
 
         {lessons && lessons.length > 0 ? (
@@ -76,7 +77,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
             <h2>Course Lessons</h2>
             <ul className={styles.lessonsList}>
               {lessons.map((lesson, index) => (
-                <a key={lesson.id} href={`/lessons/${lesson.id}`}>
+                <Link key={lesson.id} href={`/lessons/${lesson.id}`}>
                   <li>
                     <h4>
                       {index + 1}. {lesson.title}
@@ -91,7 +92,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
                     </h4>
                     <h6>{lesson.description}</h6>
                   </li>
-                </a>
+                </Link>
               ))}
             </ul>
           </div>
@@ -128,9 +129,7 @@ const CoursePage = ({ params }: CoursePageProps) => {
         <h2>Similar Courses</h2>
         <div className={styles.coursesList}>
           {similarCourses.map((course) => (
-            <a key={course.id} href={`/courses/${course.id}`}>
-              <CourseCard course={course} />
-            </a>
+            <CourseCard key={course.id} course={course} />
           ))}
         </div>
       </div>

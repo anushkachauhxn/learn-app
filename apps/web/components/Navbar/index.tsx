@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { headers } from "next/headers";
 // components
@@ -20,7 +21,7 @@ export default async function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <a className={styles.logo} href="/">
+      <Link className={styles.logo} href="/">
         <Image
           src="/logo.svg"
           alt="Learn App Logo"
@@ -28,17 +29,17 @@ export default async function Navbar() {
           height={50}
         />
         <h1>Learn App</h1>
-      </a>
+      </Link>
 
       <ul className={styles.navList}>
         {NAV_ITEMS.map((item) => (
           <li key={item.href}>
-            <a
+            <Link
               href={item.href}
               className={`${styles.navItem} ${isActive(item.href) ? styles.active : ""}`}
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

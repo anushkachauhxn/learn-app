@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, use } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 // components
 import Icons from "../../../components/Icons";
@@ -47,9 +48,9 @@ const LessonPage = ({ params }: LessonPageProps) => {
   return (
     <main className={styles.container}>
       <div className={styles.lessonContent}>
-        <a href={`/courses/${lessonData?.courseId}`}>
+        <Link href={`/courses/${lessonData?.courseId}`}>
           <h6>{courseData?.title}</h6>
-        </a>
+        </Link>
         <h1>{lessonData?.order}. {lessonData?.title}</h1>
         <div className={styles.videoWrapper}>
           <iframe
@@ -88,7 +89,7 @@ const LessonPage = ({ params }: LessonPageProps) => {
                 {courseData.lessons.map((lesson, index) => {
                   const isCurrent = lesson.id === +lessonId;
                   return (
-                    <a key={lesson.id} href={`/lessons/${lesson.id}`}>
+                    <Link key={lesson.id} href={`/lessons/${lesson.id}`}>
                       <li className={isCurrent ? styles.current : ""}>
                         <h4>
                           {index + 1}. {lesson.title}
@@ -99,7 +100,7 @@ const LessonPage = ({ params }: LessonPageProps) => {
                         </h4>
                         <h6>{lesson.description}</h6>
                       </li>
-                    </a>
+                    </Link>
                   );
                 })}
               </ul>
