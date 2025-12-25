@@ -1,135 +1,100 @@
-# Turborepo starter
+# 📖 Learn App
 
-This Turborepo starter is maintained by the Turborepo core team.
+## Tech Stack
 
-## Using this example
+- Next.js
+- Nest.js
+- Prisma (Postgres db)
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## Architecture
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+├── apps
+│   ├── api (backend)
+│   └── web (frontend)
+├── packages
+│   └──database (postgres db)
+└── turbo.json
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Database Schema
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+<img width="839" height="790" alt="Screenshot 2025-12-25 at 10 04 50 AM" src="https://github.com/user-attachments/assets/c560f3fb-fb5f-4256-8183-f31257826135" />
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+## API Specification
 
-### Develop
+These are the API endpoints:
 
-To develop all apps and packages, run the following command:
+#### Courses
 
-```
-cd my-turborepo
+- GET `/api/courses` - Get all courses
+- GET `/api/courses/:id?userId=:userId` - Get course details by id for a specific user
+- GET `/api/courses/similar/:id` - Get similar courses to a course
+- POST `/api/courses/:id/enroll` - Enroll a user in a course
+- POST `/api/courses/:id/unenroll` - Unenroll a user from a course
+- POST `/api/courses/create` - Create a new course
+- POST `/api/courses/update/:id` - Update a course
+- POST `/api/courses/delete/:id` - Delete a course
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+#### Lessons
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+- GET `/api/lessons/all/:courseId` - Get all lessons for a course
+- GET `/api/lessons/:id?userId=:userId` - Get lesson details by id for a specific user
+- POST `/api/lessons/complete/:id?userId=:userId` - Mark a lesson as completed by a user
+- POST `/api/lessons/create` - Create a new lesson
+- POST `/api/lessons/update/:id` - Update a lesson
+- POST `/api/lessons/delete/:id` - Delete a lesson
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+#### Users
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+- GET `/api/users` - Get all users
+- GET `/api/users/:id` - Get user details by id
+- GET `/api/users/stats/:id` - Get user stats by id
 
-### Remote Caching
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## How to setup and run in dev?
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Setup the codebase by cloning the repo:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+git clone https://github.com/anushkachauhxn/learn-app.git
+npm install
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Setup your prisma console and add the DATABASE_URL in `packages/database/.env`. Then run the following commands:
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+cd packages/database
+npm install
+npx turbo db:generate
+npx turbo db:migrate
+npx turbo db:seed
 ```
 
-## Useful Links
+To run all three services in your local machine, run the following command:
 
-Learn more about the power of Turborepo:
+```bash
+npx turbo run dev
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+You can now start developing!
+
+## How to run in production?
+
+You can run the entire app in production using Docker Compose.
+
+```bash
+docker compose up --build
+```
+
+See the [Docker Setup](https://github.com/anushkachauhxn/learn-app/blob/main/DOCKER_SETUP.md) for instructions on how to run in production.
+
+## Future Features
+
+- User authentication and authorization
+- Adding categories and difficulty level to courses
+- Filtering courses by categories, tags and difficulty level
+- Better process to track lesson completion - by time, by date, etc.
+- Better method for course completion stats - all lessons should not hold same weightage
+- For authors, allow them to create and manage their own courses
