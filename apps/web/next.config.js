@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   sassOptions: {
     additionalData: `
       $yellow: hsl(43, 96%, 56%);

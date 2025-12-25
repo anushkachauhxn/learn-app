@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: learn-app-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: learn_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Backend API Service
+  api:
+    build:
+      context: .
+      target: api
+    container_name: learn-app-api
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/learn_app?schema=public
+      - PORT=8000
+      - PRISMA_CLI_BINARY_TARGETS=linux-musl-openssl-3.0.x
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["sh", "-c", "rm -f ../../packages/database/.env && cd ../../packages/database && npx prisma generate && npx prisma migrate deploy && npm run db:seed && cd ../../apps/api && npm run start:prod"]
+    restart: unless-stopped
+
+  # Frontend Web Service
+  web:
+    build:
+      context: .
+      target: web
+    container_name: learn-app-web
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://api:8000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
