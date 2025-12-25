@@ -206,7 +206,7 @@ export const courseData = [
   {
     title: "Introduction to Product Management",
     description: "Step into the exciting world of product management and learn how to drive successful products from conception to launch. This comprehensive course covers the essential skills every product manager needs, including market research, user story creation, roadmap planning, and stakeholder communication. You'll discover how to balance user needs with business objectives, make data-driven decisions, and lead cross-functional teams effectively. Through real-world case studies and practical exercises, you'll develop the strategic thinking and leadership skills necessary to excel in this dynamic role.",
-    previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*BpgFQ6mzg8BdZX1CPz0S8Q.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1690192265491-7b11a6650169",
     tags: ["Product Management", "Design Thinking"],
     author: "priya@example.com",
     students: ["jane@example.com", "john@example.com"],
@@ -234,7 +234,7 @@ export const courseData = [
   {
     title: "Product Management Principles and Practices",
     description: "Elevate your product management expertise with advanced strategies and methodologies used by industry leaders. This intensive course delves deep into sophisticated product management techniques including advanced analytics, stakeholder management, and go-to-market strategies. You'll master the art of product roadmapping, learn to leverage web analytics for informed decision-making, and develop skills in managing complex stakeholder relationships. Perfect for experienced professionals looking to advance their careers or those transitioning into senior product roles, this course provides the strategic insight needed to drive product success at scale.",
-    previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*BpgFQ6mzg8BdZX1CPz0S8Q.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1590402494610-2c378a9114c6",
     tags: ["Product Management", "Stakeholder Engagement", "Web Analytics"],
     author: "priya@example.com",
     students: ["jane@example.com"],
@@ -274,7 +274,7 @@ export const courseData = [
   {
     title: "User Experience Design Fundamentals",
     description: "Transform your understanding of user-centered design and create digital experiences that truly resonate with users. This comprehensive UX design course covers the complete design process from user research and persona development to wireframing, prototyping, and usability testing. You'll learn design thinking methodologies, master industry-standard tools, and develop skills in stakeholder engagement and user analytics. Through practical projects and real-world scenarios, you'll build a portfolio of work that demonstrates your ability to create intuitive, accessible, and delightful user experiences across various digital platforms.",
-    previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*5nZnS2HKGDASJLc4tD4xXA.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1646617747563-4f080bddf282",
     tags: ["Design Thinking", "Stakeholder Engagement", "Web Analytics"],
     author: "priya@example.com",
     students: ["emily@example.com"],
@@ -320,7 +320,7 @@ export const courseData = [
   {
     title: "Android Mobile Development",
     description: "Master the art of creating powerful mobile applications for the world's most popular mobile platform. This comprehensive Android development course takes you from setup to deployment, covering everything you need to build professional mobile apps. You'll learn Java programming in the context of Android, understand app architecture patterns, master UI design principles, and work with databases and APIs. Through hands-on projects, you'll create fully functional apps while learning best practices for testing, optimization, and Google Play Store deployment. Perfect for developers ready to enter the mobile app market.",
-    previewImageUrl: "https://miro.medium.com/v2/resize:fit:1400/1*QUaRnELKBOkTy4NGTL3JaA.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1694878982190-6e37aa9eb306",
     tags: ["Android", "Java", "Mobile Development"],
     author: "jaydeep@example.com",
     students: ["john@example.com"],
@@ -366,7 +366,7 @@ export const courseData = [
   {
     title: "Python for Data Science",
     description: "Unlock the power of data analysis and machine learning with Python, the most versatile programming language in the data science ecosystem. This comprehensive course covers essential libraries like NumPy, Pandas, and Matplotlib, teaching you to manipulate, analyze, and visualize complex datasets. You'll master SQL for database interactions, learn statistical analysis techniques, and discover how to extract meaningful insights from raw data. Through real-world projects and case studies, you'll develop the skills needed to excel as a data scientist, from data cleaning and exploration to creating compelling visualizations and reports.",
-    previewImageUrl: "https://media.geeksforgeeks.org/wp-content/uploads/20200225180205/51.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1649180556628-9ba704115795",
     tags: ["Python", "SQL", "Data Science"],
     author: "jaydeep@example.com",
     students: ["jane@example.com", "john@example.com", "emily@example.com"],
@@ -400,7 +400,7 @@ export const courseData = [
   {
     title: "Java Programming",
     description: "Master one of the world's most popular and versatile programming languages used by millions of developers worldwide. This comprehensive Java course covers everything from basic syntax to advanced object-oriented programming concepts. You'll learn to write clean, efficient code using Java's powerful features including classes, inheritance, polymorphism, and exception handling. Through practical projects and coding exercises, you'll develop expertise in Java collections, understand memory management, and explore Java's role in backend web development and enterprise applications. Ideal for beginners or programmers looking to add Java to their skill set.",
-    previewImageUrl: "https://logos-world.net/wp-content/uploads/2022/07/Java-Logo.png",
+    previewImageUrl: "https://images.unsplash.com/photo-1585079542156-2755d9c8a094",
     tags: ["Java", "Backend", "Web Development"],
     author: "jaydeep@example.com",
     students: ["john@example.com"],

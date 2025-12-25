@@ -7,6 +7,13 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Starting seed...");
 
+  // Check if database is already seeded
+  const existingUsers = await prisma.user.count();
+  if (existingUsers > 0) {
+    console.log("✅ Database already seeded, skipping...");
+    return;
+  }
+
   // Create Users
   await prisma.user.createMany({ data: userData });
   console.log("✅ Users created");
@@ -100,7 +107,7 @@ async function main() {
       const completionsCount = Math.floor(Math.random() * (maxCompletions + 1)); // 0 to maxCompletions
 
       if (completionsCount > 0) {
-        let completedLessons = lessons.filter((lesson) => lesson.order <= completionsCount).map((lesson) => ({ id: lesson.id }));
+        let completedLessons = lessons.filter((lesson: any) => lesson.order <= completionsCount).map((lesson: any) => ({ id: lesson.id }));
 
         await prisma.userCourse.update({
           where: { id: enrollment.id },
@@ -114,26 +121,6 @@ async function main() {
     }
   }
   console.log("✅ Lesson completions created");
-
-  // Update courses
-  for (const course of courseData) {
-    let dbCourse = await prisma.course.findFirst({
-      where: {
-        title: course.title,
-        deleted: false
-      }
-    });
-    if (dbCourse) {
-      await prisma.course.update({
-        where: { id: dbCourse.id },
-        data: {
-          description: course.description + " Updated"
-        }
-      });
-      console.log("✅ Course updated:", dbCourse.title);
-    }
-  }
-  console.log("✅ Course descriptions updated");
 
   console.log("🎉 Seed completed successfully!");
 }
