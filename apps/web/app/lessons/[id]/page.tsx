@@ -132,8 +132,9 @@ const LessonPage = ({ params }: LessonPageProps) => {
                         <h4>
                           {index + 1}. {lesson.title}
                           <div className={styles.status}>
-                            {isCurrent ? <Icons.BoltSolid /> : lesson.completed ? <Icons.CheckSquare /> : null}
-                            {isCurrent ? "Current" : lesson.completed ? "Completed" : null}
+                            {isCurrent ? <Icons.BoltSolid /> : null}
+                            {lesson.completed ? <Icons.CheckSquare /> : null}
+                            {lesson.completed ? "Completed" : isCurrent ? "Current" : null}
                           </div>
                         </h4>
                         <h6>{lesson.description}</h6>

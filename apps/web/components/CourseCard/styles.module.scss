@@ -1,6 +1,7 @@
 .courseCard {
   padding: 24px;
   width: 100%;
+  height: 100%;
   @include flex-column;
   row-gap: 16px;
   background: rgba(255, 255, 255, 0.35);
