@@ -17,39 +17,65 @@ import styles from "./styles.module.scss";
 const CoursePage = ({ params }: CoursePageProps) => {
   const { id: courseId } = use(params);
   const { selectedUserId } = useUserContext();
+  const [loading, setLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [similarCourses, setSimilarCourses] = useState<Course[]>([]);
 
   useEffect(() => {
-    if (selectedUserId && courseId) {
-      coursesService.getCourseDetails(+courseId, selectedUserId)
-      .then((data) => {
-        setCourseData(data);
-        setLessons(data.lessons);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    loadPageData();
+  }, [selectedUserId, courseId]);
 
-      coursesService.getSimilarCourses(+courseId)
-      .then((data) => {
-        setSimilarCourses(data);
+  const loadPageData = () => {
+    if (selectedUserId && courseId) {
+      setLoading(true);
+      Promise.all([
+        coursesService.getCourseDetails(+courseId, selectedUserId),
+        coursesService.getSimilarCourses(+courseId)
+      ])
+      .then(([courseData, similarData]) => {
+        setCourseData(courseData);
+        setLessons(courseData.lessons);
+        setSimilarCourses(similarData);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Failed to load course data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     }
-  }, [selectedUserId, courseId]);
+  }
 
   const handleChangeEnrollment = () => {
     if (selectedUserId) {
-      if (!courseData?.enrolled) {
-        coursesService.enrollCourse(+courseId, selectedUserId);
-      } else {
-        coursesService.unenrollCourse(+courseId, selectedUserId);
-      }
+      setActionLoading(true);
+      const enrollmentAction = courseData?.enrolled
+        ? coursesService.unenrollCourse(+courseId, selectedUserId)
+        : coursesService.enrollCourse(+courseId, selectedUserId);
+
+      enrollmentAction
+      .then(() => {
+        loadPageData(); // Reload page data after enrollment change
+      })
+      .catch((error) => {
+        console.error("Failed to change enrollment:", error);
+      })
+      .finally(() => {
+        setActionLoading(false);
+      });
     }
+  }
+
+  if (loading) {
+    return (
+      <main className={styles.container}>
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -105,9 +131,19 @@ const CoursePage = ({ params }: CoursePageProps) => {
           <button
             className={styles.ctaButton}
             onClick={handleChangeEnrollment}
+            disabled={actionLoading}
           >
-            {courseData?.enrolled ? <Icons.PlugSolid /> : <Icons.BoltSolid />}
-            {courseData?.enrolled ? "Unenroll" : "Enroll Now"}
+            {actionLoading ? (
+              <>
+                <div className="spinner" style={{ width: '16px', height: '16px', marginRight: '8px' }}></div>
+                Loading...
+              </>
+            ) : (
+              <>
+                {courseData?.enrolled ? <Icons.PlugSolid /> : <Icons.BoltSolid />}
+                {courseData?.enrolled ? "Unenroll" : "Enroll Now"}
+              </>
+            )}
           </button>
           <hr />
           <h4>This course includes</h4>

@@ -10,20 +10,38 @@ import styles from "./dashboard.module.scss";
 
 const Dashbaord = () => {
   const { selectedUserId } = useUserContext();
+  const [loading, setLoading] = useState(false);
   const [userStats, setUserStats] = useState<UserStats | null>(null);
   const [authoredCourses, setAuthoredCourses] = useState<AuthoredCourse[] | null>(null);
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[] | null>(null);
 
   useEffect(() => {
     if (selectedUserId) {
+      setLoading(true);
       usersService.getUserStats(selectedUserId)
       .then((data) => {
         setUserStats(data);
         setAuthoredCourses(data.authoredCourses);
         setEnrolledCourses(data.enrolledCourses);
+      })
+      .catch((error) => {
+        console.error("Failed to load dashboard data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     }
   }, [selectedUserId]);
+
+  if (loading) {
+    return (
+      <main className={styles.container}>
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.container}>

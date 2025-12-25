@@ -15,34 +15,63 @@ const LessonPage = ({ params }: LessonPageProps) => {
   const router = useRouter();
   const { id: lessonId } = use(params);
   const { selectedUserId } = useUserContext();
+  const [loading, setLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
   const [lessonData, setLessonData] = useState<LessonDetail | null>(null);
   const [courseData, setCourseData] = useState<CourseDetail | null>(null);
 
   useEffect(() => {
-    if (selectedUserId && lessonId) {
-      lessonsService.getLessonDetails(+lessonId, selectedUserId)
-      .then((data) => {
-        setLessonData(data);
+    loadPageData();
+  }, [selectedUserId, lessonId]);
 
-        // fetch course details
-        coursesService.getCourseDetails(data.courseId, selectedUserId)
-        .then((data) => {
-          setCourseData(data);
-        });
+  const loadPageData = () => {
+    if (selectedUserId && lessonId) {
+      setLoading(true);
+      lessonsService.getLessonDetails(+lessonId, selectedUserId)
+      .then((lessonData) => {
+        setLessonData(lessonData);
+        return coursesService.getCourseDetails(lessonData.courseId, selectedUserId);
+      })
+      .then((courseData) => {
+        setCourseData(courseData);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Failed to load lesson data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     }
-  }, [selectedUserId, lessonId]);
+  }
 
   const handleCtaClick = () => {
     if (!lessonData?.enrolled) {
       router.push(`/courses/${lessonData?.courseId}`);
     }
     else if (selectedUserId) {
-      lessonsService.markLessonComplete(+lessonId, selectedUserId);
+      setActionLoading(true);
+      lessonsService.markLessonComplete(+lessonId, selectedUserId)
+      .then(() => {
+        // Reload page data after marking complete
+        return loadPageData();
+      })
+      .catch((error) => {
+        console.error("Failed to mark lesson complete:", error);
+      })
+      .finally(() => {
+        setActionLoading(false);
+      });
     }
+  }
+
+  if (loading) {
+    return (
+      <main className={styles.container}>
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -75,9 +104,18 @@ const LessonPage = ({ params }: LessonPageProps) => {
             ? (
               <h5><Icons.CheckSquare />Completed</h5>
             ) : (
-              <button className={styles.ctaBtn} onClick={handleCtaClick}>
-                {lessonData?.enrolled ? <Icons.CheckSquare /> : <Icons.BoltSolid />}
-                {lessonData?.enrolled ? "Mark as Complete" : "Go to Course"}
+              <button className={styles.ctaBtn} onClick={handleCtaClick} disabled={actionLoading}>
+                {actionLoading ? (
+                  <>
+                    <div className="spinner" style={{ width: '16px', height: '16px', marginRight: '8px' }}></div>
+                    Loading...
+                  </>
+                ) : (
+                  <>
+                    {lessonData?.enrolled ? <Icons.CheckSquare /> : <Icons.BoltSolid />}
+                    {lessonData?.enrolled ? "Mark as Complete" : "Go to Course"}
+                  </>
+                )}
               </button>
             )
           }

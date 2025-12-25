@@ -45,3 +45,25 @@ button:visited {
 ul {
   list-style: none;
 }
+
+// Loader
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid $yellow;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Loading overlay
+.loading-overlay {
+  @include flex-center;
+  min-height: 500px;
+  grid-column: span 3;
+}

@@ -9,18 +9,36 @@ import styles from "../../dashboard/dashboard.module.scss";
 
 const UserStatsPage = ({ params }: UserStatsPageProps) => {
   const { id: userId } = use(params);
+  const [loading, setLoading] = useState(false);
   const [userStats, setUserStats] = useState<UserStats | null>(null);
   const [authoredCourses, setAuthoredCourses] = useState<AuthoredCourse[] | null>(null);
   
   useEffect(() => {
     if (userId) {
+      setLoading(true);
       usersService.getUserStats(+userId)
       .then((data) => {
         setUserStats(data);
         setAuthoredCourses(data.authoredCourses);
+      })
+      .catch((error) => {
+        console.error("Failed to load user stats:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     }
   }, [userId]);
+
+  if (loading) {
+    return (
+      <main className={styles.container}>
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.container}>
